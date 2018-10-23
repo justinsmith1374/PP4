@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">AllergyApp</string>
+    <string name="app_version">Allergy App v0.0</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_product_search">ProductSearch</string>
+    <string name="title_activity_allergies">Allergies</string>
 </resources>
