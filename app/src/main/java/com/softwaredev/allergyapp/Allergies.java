@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,8 @@ public class Allergies extends AppCompatActivity {
     ArrayAdapter<String> arrAdapter;
     static SharedPreferences sharedPref;
     int mSize;
+    Spinner dropdown;
+    String allergyString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,16 +83,6 @@ public class Allergies extends AppCompatActivity {
                 }
         );
 
-        FloatingActionButton fab = findViewById(R.id.addAllergyButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent addIntent = new Intent(AllergyUI.this, AddItem.class);
-                //addIntent.putExtra("allergy", true);
-                //startActivityForResult(addIntent, 1);
-            }
-        });
-
         arrAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, allergyList);
         ListView listView = findViewById(R.id.allergyListView);
         listView.setAdapter(arrAdapter);
@@ -106,7 +99,29 @@ public class Allergies extends AppCompatActivity {
             }
         }
 
-        //registerForContextMenu(listView);
+        dropdown = findViewById(R.id.allergySpinner);
+
+       String[] allergies = new String[]{"Select an allergy", "Dairy","Eggs","Tree Nuts", "Peanuts", "Shellfish", "Wheat", "Soy", "Fish", "Apples", "Alcohol", "Cinnamon", "Garlic", "Citrus"};
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allergies);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object allergy = adapter.getItem(position);
+                if (allergy != null && allergy.toString() != allergyString)
+                {
+                    allergyString = allergy.toString();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        registerForContextMenu(listView);
     }
 
     @Override
@@ -135,16 +150,12 @@ public class Allergies extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
-    /*@Override
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);
-
-        menu.findItem(R.id.remove).setTitle("Remove item from list");
-        menu.findItem(R.id.removeAll).setTitle("");
-        menu.findItem(R.id.addOne).setTitle("");
-        menu.findItem(R.id.addAll).setTitle("");
+        inflater.inflate(R.menu.allergy_context_menu, menu);
     }
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -158,7 +169,7 @@ public class Allergies extends AppCompatActivity {
         else
             return super.onContextItemSelected(item);
     }
-*/
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -207,6 +218,18 @@ public class Allergies extends AppCompatActivity {
     }
     */
 
+    public void addButtonPressed(View view)
+    {
+        if (allergyString != "Select an allergy") {
+            for (int i = 0; i < allergyList.size(); ++i) {
+                if (allergyList.get(i) == allergyString)
+                    return;
+            }
+            addAllergy(allergyString);
+            recreate();
+        }
+    }
+
     public static void addAllergy(String allergy)
     {
         allergyList.add(allergy);
@@ -216,20 +239,6 @@ public class Allergies extends AppCompatActivity {
         editor.putInt("size", allergyList.size());
         editor.apply();
     }
-   /* public static boolean CheckRec()
-    {
-        ArrayList<String> RecListTemp = RecipeList.RecNameList;
-        if(allergyList.size() != 0) {
-            for (int i = 0; i < allergyList.size(); i++) {
-                for (int j = 0; j < RecListTemp.size(); j++) {
-                    if (allergyList.get(i).equals(RecListTemp.get(j))) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }*/
 
     public void removeItemFromAllergy(int position)
     {
@@ -240,9 +249,8 @@ public class Allergies extends AppCompatActivity {
             editor.clear();
             editor.commit();
 
-            editor.putInt("size", allergyList.size());
-            for (int i = 0; i < allergyList.size(); ++i) {
-                editor.putString("allergy" + Integer.toString(allergyList.size()), allergyList.get(i));
+            for (int i = 1; i < allergyList.size() + 1; ++i) {
+                editor.putString("allergy" + Integer.toString(i), allergyList.get(i - 1));
             }
             editor.putInt("size", allergyList.size());
             editor.commit();
