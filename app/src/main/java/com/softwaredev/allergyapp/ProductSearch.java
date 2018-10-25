@@ -26,6 +26,9 @@ public class ProductSearch extends AppCompatActivity {
         public static TextView results;
         public static String url = "https://world.openfoodfacts.org/api/v0/product/737628064502.json";
         EditText searchQuery;
+        public static String itemName = "";
+        public static String allergens = "";
+        public static String ingredients = "";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,15 @@ public class ProductSearch extends AppCompatActivity {
                     }
                     fetchData process = new fetchData();
                     process.execute();
+                    if (itemName != "")
+                    {
+                        Intent infoIntent = new Intent(ProductSearch.this, ShowItem.class);
+                        infoIntent.putExtra("itemName", itemName);
+                        infoIntent.putExtra("allergens", allergens);
+                        infoIntent.putExtra("ingredients", ingredients);
+                        startActivity(infoIntent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
                 }
             });
         }

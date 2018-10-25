@@ -28,7 +28,11 @@
         <activity
             android:name=".Allergies"
             android:label="@string/title_activity_allergies"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ShowItem"
+            android:label="@string/title_activity_show_item"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

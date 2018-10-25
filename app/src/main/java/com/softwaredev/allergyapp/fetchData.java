@@ -14,8 +14,9 @@ import java.net.URL;
 
 public class fetchData extends AsyncTask<Void, Void, Void> {
     String data = "";
-    String dataParsed = "";
-    String singleParsed = "";
+    String itemName = "";
+    String allergens = "";
+    String ingredients = "";
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -33,9 +34,9 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
 
             JSONObject JO = new JSONObject(data);
             JSONObject JO1 = JO.getJSONObject("product");
-            singleParsed = "Product Name: " + JO1.getString("product_name") + "\n" + "\n";
-            singleParsed = singleParsed + "Allergens: " + JO1.getString("allergens_from_ingredients") + "\n" + "\n";
-            singleParsed = singleParsed + "Ingredients: " + JO1.getString("ingredients_text_en");
+            itemName = JO1.getString("product_name");
+            allergens = "Allergens: " + JO1.getString("allergens_from_ingredients") + "\n" + "\n";
+            ingredients = "Ingredients: " + JO1.getString("ingredients_text_en");
 
 
         } catch (IOException e) {
@@ -50,7 +51,9 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        ProductSearch.results.setText(this.singleParsed);
+        ProductSearch.itemName = itemName;
+        ProductSearch.allergens = allergens;
+        ProductSearch.ingredients = ingredients;
 
     }
 }

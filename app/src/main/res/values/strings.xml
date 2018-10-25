@@ -6,4 +6,5 @@
     <string name="title_activity_allergies">Allergies</string>
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="title_activity_show_item">ShowItem</string>
 </resources>
