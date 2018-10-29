@@ -16,11 +16,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class FavoriteItems extends AppCompatActivity {
     Context context;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    ListView favoritesLV;
+    ArrayList<String> favoriteItemsBarcodes;
+    ArrayList<String> favoriteItemsNames;
+    ArrayAdapter<String> favoritesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +78,13 @@ public class FavoriteItems extends AppCompatActivity {
                 }
         );
 
+        favoriteItemsNames = ProductSearch.getUser().getFavoriteItemsNames();
+        favoriteItemsBarcodes = ProductSearch.getUser().getFavoriteItemsBarcodes();
+
         context = this;
+        favoritesLV = findViewById(R.id.favoriteItemsLV);
+        favoritesAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, favoriteItemsNames);
+        favoritesLV.setAdapter(favoritesAdapter); 
     }
 
     @Override

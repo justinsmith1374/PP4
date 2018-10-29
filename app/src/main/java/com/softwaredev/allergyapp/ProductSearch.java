@@ -29,6 +29,8 @@ public class ProductSearch extends AppCompatActivity {
         public static String itemName = "";
         public static String allergens = "";
         public static String ingredients = "";
+        public static String barcode = "";
+        public static User user;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +98,14 @@ public class ProductSearch extends AppCompatActivity {
                         infoIntent.putExtra("itemName", itemName);
                         infoIntent.putExtra("allergens", allergens);
                         infoIntent.putExtra("ingredients", ingredients);
+                        infoIntent.putExtra("barcode", barcode);
                         startActivity(infoIntent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 }
             });
+
+            user = new User(this);
         }
 
         @Override
@@ -160,4 +165,8 @@ public class ProductSearch extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }*/
 
+       public static User getUser()
+       {
+           return user;
+       }
 }

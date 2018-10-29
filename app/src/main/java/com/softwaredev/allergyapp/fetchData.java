@@ -17,6 +17,7 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
     String itemName = "";
     String allergens = "";
     String ingredients = "";
+    String barcode = "";
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -37,6 +38,7 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
             itemName = JO1.getString("product_name");
             allergens = "Allergens: " + JO1.getString("allergens_from_ingredients") + "\n" + "\n";
             ingredients = "Ingredients: " + JO1.getString("ingredients_text_en");
+            barcode = JO1.getString("id");
 
 
         } catch (IOException e) {
@@ -54,6 +56,6 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
         ProductSearch.itemName = itemName;
         ProductSearch.allergens = allergens;
         ProductSearch.ingredients = ingredients;
-
+        ProductSearch.barcode = barcode;
     }
 }

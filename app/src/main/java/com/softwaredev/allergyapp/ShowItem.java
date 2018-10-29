@@ -14,6 +14,7 @@ public class ShowItem extends AppCompatActivity {
     String itemName;
     String allergens;
     String ingredients;
+    String barcode;
     TextView itemNameTV;
     TextView allergensTV;
     TextView ingredientsTV;
@@ -30,6 +31,7 @@ public class ShowItem extends AppCompatActivity {
         itemName = intent.getStringExtra("itemName");
         allergens = intent.getStringExtra("allergens");
         ingredients = intent.getStringExtra("ingredients");
+        barcode = intent.getStringExtra("barcode");
 
         itemNameTV = findViewById(R.id.itemNameTextView);
         allergensTV = findViewById(R.id.allergensTextView);
@@ -39,6 +41,10 @@ public class ShowItem extends AppCompatActivity {
         allergensTV.setText(allergens);
         ingredientsTV.setText(ingredients);
 
+    }
+
+    public void sendAddToFavorites(View view) {
+        ProductSearch.getUser().addToFavoriteItems(itemName, barcode);
     }
 
 }
