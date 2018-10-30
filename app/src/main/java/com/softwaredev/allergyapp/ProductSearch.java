@@ -31,6 +31,7 @@ public class ProductSearch extends AppCompatActivity {
         public static String ingredients = "";
         public static String barcode = "";
         public static User user;
+        public static Boolean searchDone = false;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -86,13 +87,20 @@ public class ProductSearch extends AppCompatActivity {
             searchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String text = searchQuery.getText().toString();
                     if (!searchQuery.getText().toString().equals("Enter Barcode")) {
                         url = "https://world.openfoodfacts.org/api/v0/product/" + searchQuery.getText().toString() + ".json";
                     }
                     fetchData process = new fetchData();
                     process.execute();
-                    if (itemName != "")
+
+                    //while (!searchDone)
+                    {
+
+                    }
+
+                    //searchDone = false;
+
+                    //if (itemName != "")
                     {
                         Intent infoIntent = new Intent(ProductSearch.this, ShowItem.class);
                         infoIntent.putExtra("itemName", itemName);

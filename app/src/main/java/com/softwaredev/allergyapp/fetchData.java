@@ -18,6 +18,8 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
     String allergens = "";
     String ingredients = "";
     String barcode = "";
+    String imageUrl = "";
+    String brand = "";
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -36,9 +38,22 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
             JSONObject JO = new JSONObject(data);
             JSONObject JO1 = JO.getJSONObject("product");
             itemName = JO1.getString("product_name");
-            allergens = "Allergens: " + JO1.getString("allergens_from_ingredients") + "\n" + "\n";
+            allergens = "Allergens: " + JO1.getString("allergens_from_ingredients");
             ingredients = "Ingredients: " + JO1.getString("ingredients_text_en");
             barcode = JO1.getString("id");
+            imageUrl = JO1.getString("image_url");
+            brand = JO1.getString("brands");
+
+            for (int i = 0; i < brand.length(); ++i)
+            {
+                if (brand.charAt(i) == ',')
+                {
+                    brand = brand.substring(0, i);
+                }
+            }
+
+            itemName = brand + " " + itemName;
+
 
 
         } catch (IOException e) {
@@ -57,5 +72,13 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
         ProductSearch.allergens = allergens;
         ProductSearch.ingredients = ingredients;
         ProductSearch.barcode = barcode;
+
+        ShowItem.itemName = itemName;
+        ShowItem.allergens = allergens;
+        ShowItem.ingredients = ingredients;
+        ShowItem.barcode = barcode;
+        ShowItem.imageUrl = imageUrl;
+
+        ShowItem.setText();
     }
 }

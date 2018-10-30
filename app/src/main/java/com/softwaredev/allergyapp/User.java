@@ -17,11 +17,11 @@ public class User {
         favoriteItemsNames = new ArrayList<>();
         mSize = favoriteItemsBarcodes.size();
         mContext = context;
-        sharedPref = context.getSharedPreferences("com.softwaredav.allergyapp.user", Context.MODE_PRIVATE);
+        sharedPref = context.getSharedPreferences("com.softwaredev.allergyapp.user", Context.MODE_PRIVATE);
 
         mSize = sharedPref.getInt("size", 0);
 
-        for (int i = 0; i < mSize; ++i)
+        for (int i = 1; i < mSize + 1; ++i)
         {
             favoriteItemsBarcodes.add(sharedPref.getString("favoriteBarcode" + i, ""));
             favoriteItemsNames.add(sharedPref.getString("favoriteName" + i, ""));

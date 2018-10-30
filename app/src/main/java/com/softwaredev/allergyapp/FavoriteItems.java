@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -84,7 +85,28 @@ public class FavoriteItems extends AppCompatActivity {
         context = this;
         favoritesLV = findViewById(R.id.favoriteItemsLV);
         favoritesAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, favoriteItemsNames);
-        favoritesLV.setAdapter(favoritesAdapter); 
+        favoritesLV.setAdapter(favoritesAdapter);
+
+        favoritesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(FavoriteItems.this, ShowItem.class);
+
+                ProductSearch.url = "https://world.openfoodfacts.org/api/v0/product/" + favoriteItemsBarcodes.get(position) + ".json";
+                fetchData process = new fetchData();
+                process.execute();
+
+                intent.putExtra("position", position);
+                intent.putExtra("itemName", ProductSearch.itemName);
+                intent.putExtra("allergens", ProductSearch.allergens);
+                intent.putExtra("ingredients", ProductSearch.ingredients);
+                intent.putExtra("barcode", ProductSearch.barcode);
+                intent.putExtra("isFavorite", true);
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
     }
 
     @Override

@@ -1,23 +1,34 @@
 package com.softwaredev.allergyapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 
 public class ShowItem extends AppCompatActivity {
 
-    String itemName;
-    String allergens;
-    String ingredients;
-    String barcode;
-    TextView itemNameTV;
-    TextView allergensTV;
-    TextView ingredientsTV;
+    public static String itemName = "";
+    public static String allergens = "";
+    public static String ingredients = "";
+    public static String barcode = "";
+    public static String imageUrl = "";
+    static TextView itemNameTV;
+    static TextView allergensTV;
+    static TextView ingredientsTV;
+    static ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +47,7 @@ public class ShowItem extends AppCompatActivity {
         itemNameTV = findViewById(R.id.itemNameTextView);
         allergensTV = findViewById(R.id.allergensTextView);
         ingredientsTV = findViewById(R.id.ingredientsTextView);
+        imageView = findViewById(R.id.imageView);
 
         itemNameTV.setText(itemName);
         allergensTV.setText(allergens);
@@ -45,6 +57,16 @@ public class ShowItem extends AppCompatActivity {
 
     public void sendAddToFavorites(View view) {
         ProductSearch.getUser().addToFavoriteItems(itemName, barcode);
+    }
+
+    public static void setText(){
+        itemNameTV.setText(itemName);
+        allergensTV.setText(allergens);
+        ingredientsTV.setText(ingredients);
+
+        if (!imageUrl.equals("")) {
+            Picasso.get().load(imageUrl).into(imageView);
+        }
     }
 
 }
