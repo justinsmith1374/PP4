@@ -20,11 +20,16 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
     String barcode = "";
     String imageUrl = "";
     String brand = "";
+    String urlText = "";
+
+    public fetchData (String u) {
+        urlText = u;
+    }
 
     @Override
     protected Void doInBackground(Void... voids) {
         try {
-            URL url = new URL(ProductSearch.url);
+            URL url = new URL(urlText);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = connection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

@@ -92,8 +92,8 @@ public class FavoriteItems extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(FavoriteItems.this, ShowItem.class);
 
-                ProductSearch.url = "https://world.openfoodfacts.org/api/v0/product/" + favoriteItemsBarcodes.get(position) + ".json";
-                fetchData process = new fetchData();
+                String url = "https://world.openfoodfacts.org/api/v0/product/" + favoriteItemsBarcodes.get(position) + ".json";
+                fetchData process = new fetchData(url);
                 process.execute();
 
                 intent.putExtra("position", position);

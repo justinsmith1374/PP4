@@ -90,7 +90,7 @@ public class ProductSearch extends AppCompatActivity {
                     if (!searchQuery.getText().toString().equals("Enter Barcode")) {
                         url = "https://world.openfoodfacts.org/api/v0/product/" + searchQuery.getText().toString() + ".json";
                     }
-                    fetchData process = new fetchData();
+                    fetchData process = new fetchData(url);
                     process.execute();
 
                     //while (!searchDone)
@@ -150,7 +150,7 @@ public class ProductSearch extends AppCompatActivity {
         }
 
         public void sendBarcode() {
-            Intent barcodeIntent = new Intent(this, ProductSearch.class);
+            Intent barcodeIntent = new Intent(this, BarcodeScanner.class);
             startActivity(barcodeIntent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
