@@ -43,7 +43,15 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
             JSONObject JO = new JSONObject(data);
             JSONObject JO1 = JO.getJSONObject("product");
             itemName = JO1.getString("product_name");
-            allergens = "Allergens: " + JO1.getString("allergens_from_ingredients");
+
+            allergens = JO1.getString("allergens_from_ingredients");
+            if (!allergens.equals("")) {
+                allergens = "Allergens: " + allergens;
+            }
+            else {
+                allergens = "Allergens: None";
+            }
+
             ingredients = "Ingredients: " + JO1.getString("ingredients_text_en");
             barcode = JO1.getString("id");
             imageUrl = JO1.getString("image_url");
@@ -73,16 +81,30 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        ProductSearch.itemName = itemName;
-        ProductSearch.allergens = allergens;
-        ProductSearch.ingredients = ingredients;
-        ProductSearch.barcode = barcode;
+        if (!itemName.equals("")) {
+            ProductSearch.itemName = itemName;
+            ProductSearch.allergens = allergens;
+            ProductSearch.ingredients = ingredients;
+            ProductSearch.barcode = barcode;
 
-        ShowItem.itemName = itemName;
-        ShowItem.allergens = allergens;
-        ShowItem.ingredients = ingredients;
-        ShowItem.barcode = barcode;
-        ShowItem.imageUrl = imageUrl;
+            ShowItem.itemName = itemName;
+            ShowItem.allergens = allergens;
+            ShowItem.ingredients = ingredients;
+            ShowItem.barcode = barcode;
+            ShowItem.imageUrl = imageUrl;
+        }
+        else {
+            ProductSearch.itemName = "Item Not Found";
+            ProductSearch.allergens = "";
+            ProductSearch.ingredients = "";
+            ProductSearch.barcode = barcode;
+
+            ShowItem.itemName = "Item Not Found";
+            ShowItem.allergens = "";
+            ShowItem.ingredients = "";
+            ShowItem.barcode = barcode;
+            ShowItem.imageUrl = imageUrl;
+        }
 
         ShowItem.setText();
     }

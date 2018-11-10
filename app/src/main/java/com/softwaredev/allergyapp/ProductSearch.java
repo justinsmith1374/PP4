@@ -43,7 +43,7 @@ public class ProductSearch extends AppCompatActivity {
             ActionBar actionbar = getSupportActionBar();
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-            actionbar.setTitle("Barcode Search");
+            actionbar.setTitle("Enter Barcode");
 
             mDrawerLayout = findViewById(R.id.drawer_layout);
             mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -63,7 +63,7 @@ public class ProductSearch extends AppCompatActivity {
 
                             if (menuItem.toString().equals("Favorite Products")) {
                                 sendFavorites();
-                            } else if (menuItem.toString().equals("Product Search")) {
+                            } else if (menuItem.toString().equals("Enter Barcode")) {
                                 sendSearch();
                             } else if (menuItem.toString().equals("Barcode Scanner")) {
                                 sendBarcode();
@@ -81,7 +81,6 @@ public class ProductSearch extends AppCompatActivity {
             );
 
             searchButton = (Button) findViewById(R.id.searchButton);
-            results = (TextView) findViewById(R.id.textView2);
             searchQuery = findViewById(R.id.editText);
 
             searchButton.setOnClickListener(new View.OnClickListener() {

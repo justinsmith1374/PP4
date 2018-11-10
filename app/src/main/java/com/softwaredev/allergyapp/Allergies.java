@@ -66,7 +66,7 @@ public class Allergies extends AppCompatActivity {
 
                         if (menuItem.toString().equals("Favorite Products")) {
                             sendFavorites();
-                        } else if (menuItem.toString().equals("Product Search")) {
+                        } else if (menuItem.toString().equals("Enter Barcode")) {
                             sendSearch();
                         } else if (menuItem.toString().equals("Barcode Scanner")) {
                             sendBarcode();
@@ -101,7 +101,7 @@ public class Allergies extends AppCompatActivity {
 
         dropdown = findViewById(R.id.allergySpinner);
 
-       String[] allergies = new String[]{"Select an allergy", "Dairy","Eggs","Tree Nuts", "Peanuts", "Shellfish", "Wheat", "Soy", "Fish", "Apples", "Alcohol", "Cinnamon", "Garlic", "Citrus"};
+       String[] allergies = new String[]{"Select an allergy", "Alcohol", "Apples", "Cinnamon", "Citrus", "Dairy", "Eggs", "Fish", "Garlic", "Peanuts", "Shellfish", "Soy", "Tree Nuts", "Wheat"};
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allergies);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
@@ -109,7 +109,7 @@ public class Allergies extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Object allergy = adapter.getItem(position);
-                if (allergy != null && allergy.toString() != allergyString)
+                if (allergy != null && allergy.toString() != allergyString && allergy.toString() != "Select an allergy")
                 {
                     allergyString = allergy.toString();
                 }
@@ -193,7 +193,7 @@ public class Allergies extends AppCompatActivity {
     }
 
     public void sendBarcode() {
-        Intent barcodeIntent = new Intent(this, ProductSearch.class);
+        Intent barcodeIntent = new Intent(this, BarcodeScanner.class);
         startActivity(barcodeIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

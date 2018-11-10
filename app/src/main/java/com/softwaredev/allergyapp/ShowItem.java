@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ public class ShowItem extends AppCompatActivity {
     static TextView allergensTV;
     static TextView ingredientsTV;
     static ImageView imageView;
+    static TextView noImageTV;
+    static Button addToFavsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,8 @@ public class ShowItem extends AppCompatActivity {
         allergensTV = findViewById(R.id.allergensTextView);
         ingredientsTV = findViewById(R.id.ingredientsTextView);
         imageView = findViewById(R.id.imageView);
+        noImageTV = findViewById(R.id.noImageTV);
+        addToFavsButton = findViewById(R.id.addToFavoritesButton);
 
         itemNameTV.setText(itemName);
         allergensTV.setText(allergens);
@@ -65,7 +70,18 @@ public class ShowItem extends AppCompatActivity {
         ingredientsTV.setText(ingredients);
 
         if (!imageUrl.equals("")) {
+            noImageTV.setVisibility(View.INVISIBLE);
             Picasso.get().load(imageUrl).into(imageView);
+        }
+        else {
+            noImageTV.setVisibility(View.VISIBLE);
+        }
+
+        if (itemName.equals("Item Not Found")) {
+            addToFavsButton.setVisibility(View.INVISIBLE);
+        }
+        else {
+            addToFavsButton.setVisibility(View.VISIBLE);
         }
     }
 

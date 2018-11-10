@@ -62,7 +62,7 @@ public class FavoriteItems extends AppCompatActivity {
 
                         if (menuItem.toString().equals("Favorite Products")) {
                             sendFavorites();
-                        } else if (menuItem.toString().equals("Product Search")) {
+                        } else if (menuItem.toString().equals("Enter Barcode")) {
                             sendSearch();
                         } else if (menuItem.toString().equals("Barcode Scanner")) {
                             sendBarcode();
@@ -142,7 +142,7 @@ public class FavoriteItems extends AppCompatActivity {
     }
 
     public void sendBarcode() {
-        Intent barcodeIntent = new Intent(this, ProductSearch.class);
+        Intent barcodeIntent = new Intent(this, BarcodeScanner.class);
         startActivity(barcodeIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
