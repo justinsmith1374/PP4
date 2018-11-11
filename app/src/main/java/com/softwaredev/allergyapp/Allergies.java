@@ -66,8 +66,8 @@ public class Allergies extends AppCompatActivity {
 
                         if (menuItem.toString().equals("Favorite Products")) {
                             sendFavorites();
-                        } else if (menuItem.toString().equals("Enter Barcode")) {
-                            sendSearch();
+                        //} else if (menuItem.toString().equals("Enter Barcode")) {
+                          //  sendSearch();
                         } else if (menuItem.toString().equals("Barcode Scanner")) {
                             sendBarcode();
                         } else if (menuItem.toString().equals("Allergies")) {

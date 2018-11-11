@@ -2,6 +2,7 @@ package com.softwaredev.allergyapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +27,9 @@ public class FavoriteItems extends AppCompatActivity {
     Context context;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    public static User user;
+    Boolean firstTime;
+    static SharedPreferences sharedPref;
     ListView favoritesLV;
     ArrayList<String> favoriteItemsBarcodes;
     ArrayList<String> favoriteItemsNames;
@@ -62,8 +66,8 @@ public class FavoriteItems extends AppCompatActivity {
 
                         if (menuItem.toString().equals("Favorite Products")) {
                             sendFavorites();
-                        } else if (menuItem.toString().equals("Enter Barcode")) {
-                            sendSearch();
+                        //} else if (menuItem.toString().equals("Enter Barcode")) {
+                          //  sendSearch();
                         } else if (menuItem.toString().equals("Barcode Scanner")) {
                             sendBarcode();
                         } else if (menuItem.toString().equals("Allergies")) {
@@ -79,8 +83,10 @@ public class FavoriteItems extends AppCompatActivity {
                 }
         );
 
-        favoriteItemsNames = ProductSearch.getUser().getFavoriteItemsNames();
-        favoriteItemsBarcodes = ProductSearch.getUser().getFavoriteItemsBarcodes();
+        user = new User(this);
+
+        favoriteItemsNames = getUser().getFavoriteItemsNames();
+        favoriteItemsBarcodes = getUser().getFavoriteItemsBarcodes();
 
         context = this;
         favoritesLV = findViewById(R.id.favoriteItemsLV);
@@ -107,6 +113,21 @@ public class FavoriteItems extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+
+        sharedPref = this.getSharedPreferences("com.softwaredev.allergyapp.favoriteItems", Context.MODE_PRIVATE);
+
+        firstTime = sharedPref.getBoolean("firstTime", true);
+
+        if(firstTime) {
+            firstTime = false;
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean("firstTime", false);
+            editor.apply();
+
+            Intent allergyIntent = new Intent(this, Allergies.class);
+            startActivity(allergyIntent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
     @Override
@@ -165,4 +186,9 @@ public class FavoriteItems extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }*/
+
+    public static User getUser()
+    {
+        return user;
+    }
 }

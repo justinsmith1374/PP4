@@ -62,10 +62,17 @@
             android:layout_marginStart="8dp"
             android:onClick="sendAddToFavorites"
             android:text="Add To Favorites"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
+        
 
         <ScrollView
             android:id="@+id/scrollView2"

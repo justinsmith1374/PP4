@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ProductSearch"
+            android:name=".FavoriteItems"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,9 +26,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FavoriteItems"
-            android:label="Favorite Items"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".ProductSearch"
+            android:label="Product Search"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".Allergies"
             android:label="@string/title_activity_allergies"
