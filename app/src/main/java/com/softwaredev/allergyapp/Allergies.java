@@ -35,6 +35,7 @@ public class Allergies extends AppCompatActivity {
     int mSize;
     Spinner dropdown;
     String allergyString;
+    static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,21 +84,13 @@ public class Allergies extends AppCompatActivity {
                 }
         );
 
+        user = FavoriteItems.getUser();
+
+        allergyList = user.getAllergyList();
+
         arrAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, allergyList);
         ListView listView = findViewById(R.id.allergyListView);
         listView.setAdapter(arrAdapter);
-
-        sharedPref = this.getSharedPreferences("com.softwaredev.allergyapp.allergies", Context.MODE_PRIVATE);
-        mSize = sharedPref.getInt("size", 0);
-        allergyList.clear();
-        String temp;
-
-        for (int i = 1; i < mSize + 1; ++i) {
-            temp = sharedPref.getString("allergy" + i, "!null!");
-            if (!temp.equals("!null!")) {
-                allergyList.add(temp);
-            }
-        }
 
         dropdown = findViewById(R.id.allergySpinner);
 
@@ -127,19 +120,6 @@ public class Allergies extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-        sharedPref = this.getSharedPreferences("com.softwaredev.allergyapp.allergies", Context.MODE_PRIVATE);
-
-        mSize = sharedPref.getInt("size", 0);
-        allergyList.clear();
-        String temp;
-
-        for (int i = 1; i < mSize + 1; ++i) {
-            temp = sharedPref.getString("allergy" + i, "!null!");
-            if (!temp.equals("!null!")) {
-                allergyList.add(temp);
-            }
-        }
 
         arrAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, allergyList);
         ListView listView = findViewById(R.id.allergyListView);
@@ -232,28 +212,11 @@ public class Allergies extends AppCompatActivity {
 
     public static void addAllergy(String allergy)
     {
-        allergyList.add(allergy);
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("allergy" + Integer.toString(allergyList.size()), allergy);
-        editor.putInt("size", allergyList.size());
-        editor.apply();
+        user.addToAllergies(allergy);
     }
 
     public void removeItemFromAllergy(int position)
     {
-        if (position > -1) {
-            allergyList.remove(position);
-
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.clear();
-            editor.commit();
-
-            for (int i = 1; i < allergyList.size() + 1; ++i) {
-                editor.putString("allergy" + Integer.toString(i), allergyList.get(i - 1));
-            }
-            editor.putInt("size", allergyList.size());
-            editor.commit();
-        }
+        user.removeItemFromAllergy(position);
     }
 }
