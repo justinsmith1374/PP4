@@ -94,4 +94,41 @@ public class User {
             editor.commit();
         }
     }
+
+    public void removeItemFromFavorites(int position)
+    {
+        if (position > -1) {
+            favoriteItemsNames.remove(position);
+            favoriteItemsBarcodes.remove(position);
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.clear();
+            editor.commit();
+
+            for (int i = 1; i < favoriteItemsNames.size() + 1; ++i) {
+                editor.putString("favoriteName" + Integer.toString(i), favoriteItemsNames.get(i - 1));
+                editor.putString("favoriteBarcode" + Integer.toString(i), favoriteItemsBarcodes.get(i - 1));
+            }
+            editor.putInt("favoritesSize", favoriteItemsNames.size());
+            editor.commit();
+        }
+    }
+
+
+    public Boolean checkAllergies(String allergy)
+    {
+        for (int i = 0; i < allergyList.size(); ++i)
+        {
+            if (allergy.toLowerCase().equals(allergyList.get(i).toLowerCase()))
+            {
+                return true;
+            }
+            else if (allergyList.get(i).toLowerCase().equals("dairy") && allergy.toLowerCase().equals("milk"))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -88,10 +88,11 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
             ProductSearch.barcode = barcode;
 
             ShowItem.itemName = itemName;
-            ShowItem.allergens = allergens;
+            ShowItem.allergensString = allergens;
             ShowItem.ingredients = ingredients;
             ShowItem.barcode = barcode;
             ShowItem.imageUrl = imageUrl;
+
         }
         else {
             ProductSearch.itemName = "Item Not Found";
@@ -100,7 +101,7 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
             ProductSearch.barcode = barcode;
 
             ShowItem.itemName = "Item Not Found";
-            ShowItem.allergens = "";
+            ShowItem.allergensString = "";
             ShowItem.ingredients = "";
             ShowItem.barcode = barcode;
             ShowItem.imageUrl = imageUrl;

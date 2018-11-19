@@ -14,6 +14,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -128,6 +130,27 @@ public class FavoriteItems extends AppCompatActivity {
             startActivity(allergyIntent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
+
+        registerForContextMenu(favoritesLV);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.allergy_context_menu, menu);
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        String selectedItem = favoriteItemsNames.get(acmi.position);
+        if (!selectedItem.isEmpty()) {
+            removeItemFromFavorites(acmi.position);
+            recreate();
+            return true;
+        }
+        else
+            return super.onContextItemSelected(item);
     }
 
     @Override
@@ -190,5 +213,10 @@ public class FavoriteItems extends AppCompatActivity {
     public static User getUser()
     {
         return user;
+    }
+
+    public void removeItemFromFavorites(int position)
+    {
+        user.removeItemFromFavorites(position);
     }
 }
